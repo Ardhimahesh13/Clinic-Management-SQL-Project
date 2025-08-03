@@ -64,3 +64,87 @@ JOIN appointments a ON b.appointment_id = a.appointment_id
 JOIN doctors d ON a.doctor_id = d.doctor_id
 GROUP BY d.doctor_id
 ORDER BY total_revenue DESC;
+
+### 💸 Manage Outstanding Balances
+```sql
+-- Identifies patients with an outstanding balance
+SELECT
+    p.first_name, 
+    p.last_name, 
+    p.phone_number,
+    b.total_amount, 
+    b.amount_paid,
+    (b.total_amount - b.amount_paid) AS outstanding_balance
+FROM billings b
+JOIN appointments a ON b.appointment_id = a.appointment_id
+JOIN patients p ON a.patient_id = p.patient_id
+WHERE b.total_amount > b.amount_paid;
+
+### 💸 Manage Outstanding Balances
+```sql
+Of course. Here is the raw text that you can copy and paste directly into a GitHub README file. It uses Markdown syntax, which GitHub will automatically render into a formatted view.
+
+Markdown
+
+### 💸 Calculate Revenue and Performance
+```sql
+-- Shows total revenue per doctor
+SELECT
+    d.first_name, 
+    d.last_name, 
+    d.speciality,
+    SUM(b.total_amount) AS total_revenue
+FROM billings b
+JOIN appointments a ON b.appointment_id = a.appointment_id
+JOIN doctors d ON a.doctor_id = d.doctor_id
+GROUP BY d.doctor_id
+ORDER BY total_revenue DESC;
+
+### 🧾 Manage Outstanding Balances
+```SQL
+
+-- Identifies patients with an outstanding balance
+SELECT
+    p.first_name, 
+    p.last_name, 
+    p.phone_number,
+    b.total_amount, 
+    b.amount_paid,
+    (b.total_amount - b.amount_paid) AS outstanding_balance
+FROM billings b
+JOIN appointments a ON b.appointment_id = a.appointment_id
+JOIN patients p ON a.patient_id = p.patient_id
+WHERE b.total_amount > b.amount_paid;
+
+
+### 👨‍⚕️ Identify the Busiest Doctors and Services
+```SQL
+
+-- Finds the doctor with the most appointments
+SELECT
+    d.first_name, 
+    d.last_name, 
+    d.speciality,
+    COUNT(a.appointment_id) AS no_of_appointments
+FROM appointments a
+JOIN doctors d ON d.doctor_id = a.doctor_id
+GROUP BY d.doctor_id
+ORDER BY no_of_appointments DESC
+LIMIT 1;
+
+### 👨‍⚕️ Identify the most common reasons 
+```SQL
+
+-- Finds the most common reasons for visits
+SELECT
+    reason,
+    COUNT(appointment_id) AS number_of_visits
+FROM appointments
+GROUP BY reason
+ORDER BY number_of_visits DESC;
+
+### 🙌 Contributions
+***Feel free to fork this repo, submit issues, or open a pull request to improve it.***
+***Let’s build something great together!***
+
+
